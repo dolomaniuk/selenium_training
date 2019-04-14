@@ -34,3 +34,4 @@ class ContactHelper:
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
         # go to next page
         wd.find_element_by_name("submit").click()
+        # TODO: wait show home page

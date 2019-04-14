@@ -16,4 +16,4 @@ class SessionHelper:
 
     def logout(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("LOGOUT").click()
+        wd.find_element_by_css_selector("a[href=\"#\"]").click()
