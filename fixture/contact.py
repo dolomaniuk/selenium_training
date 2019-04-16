@@ -35,3 +35,13 @@ class ContactHelper:
         # go to next page
         wd.find_element_by_name("submit").click()
         # TODO: wait show home page
+
+    def del_first_contact(self):
+        wd = self.app.wd
+        self.select_first_contact()
+        # click DELETE
+        wd.find_element_by_css_selector("input[onclick=\"DeleteSel()\"]").click()
+
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
