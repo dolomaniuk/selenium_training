@@ -1,3 +1,6 @@
+from model.group import Group
+
+
 class GroupHelper:
 
     def __init__(self, app):
@@ -5,7 +8,11 @@ class GroupHelper:
 
     def open_groups_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("GROUPS").click()
+        current_url = wd.current_url.endswith("/group.php")
+        button_new = wd.find_elements_by_css_selector("input[value=\"DELETE_GROUPS\"]")
+        print(button_new)
+        if not (current_url and button_new):
+            wd.find_element_by_link_text("GROUPS").click()
 
     def create(self, group):
         wd = self.app.wd
@@ -62,3 +69,14 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_group_list(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        groups = []
+        for element in wd.find_elements_by_css_selector("input[type=\"checkbox\"]"):
+            text = element.get_attribute('title')[8:-1]
+            id = element.get_attribute("value")
+            groups.append(Group(name=text, id=id))
+        print(len(groups))
+        return groups
